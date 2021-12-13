@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# socket_client.py
+# socket_server.gy
 import socket
 
 
@@ -31,15 +31,18 @@ def get_text(recving_socket):
             terminator_pos = buffer.find('\n')
 
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(("127.0.0.1", 8081))
-print("Connected")
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(("0.0.0.0", 8081))
+server_socket.listen()
+print("Waiting for connection")
+connection_socket, address = server_socket.accept()
+print(f"Client connected: {address}")
 
-for message in get_text(client_socket):
-    print(message)
-print('Finished receive')
+message = "Hello, thanks for connecting"
+send_text(connection_socket, message)
 
-send_text(client_socket, "Thanks for letting me in")
-print("Sent a reply")
+for in_message in get_text(connection_socket):
+    print(in_message)
 
-client_socket.close()
+connection_socket.close()
+server_socket.close()
