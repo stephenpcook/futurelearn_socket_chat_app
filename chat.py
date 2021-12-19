@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# chat_app.py, Stephen C for futurelearn sockets MOOC, 2021.
+# chat.py, Stephen C for futurelearn sockets MOOC, 2021.
 import socket
 import argparse
 
